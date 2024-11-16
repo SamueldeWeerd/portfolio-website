@@ -134,8 +134,18 @@
 		$(".fh5co-loader").fadeOut("slow");
 	};
 
+	// Modal Close Handler
+	var handleModalClose = function() {
+		$('.modal').on('hidden.bs.modal', function() {
+			var $iframe = $(this).find('iframe');
+			if ($iframe.length) {
+				$iframe.attr('src', $iframe.attr('src'));
+			}
+		});
+	};
 	
 	$(function(){
+		handleModalClose();
 		contentWayPoint();
 		goToTop();
 		loaderPage();

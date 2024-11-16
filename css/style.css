@@ -342,7 +342,7 @@ h1, h2, h3, h4, h5, h6, figure {
   font-weight: bold;
 }
 .info li .second-block {
-  width: 60%;
+  width: 50%;
   display: inline-block;
   color: rgba(0, 0, 0, 0.5);
 }
@@ -797,6 +797,7 @@ h1, h2, h3, h4, h5, h6, figure {
   .work .desc span {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+    color: #000;
   }
 }
 .work:hover .desc {
@@ -1322,6 +1323,7 @@ input[type="text"] {
 .modal-body-image {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
 }
 
 .modal-body-video {
@@ -1329,9 +1331,35 @@ input[type="text"] {
   flex-direction: column;
 }
 
+.video-container {
+  position: relative;
+  width: 100%; /* Full width of the container */
+  padding-bottom: 56.25%; /* Aspect ratio for 16:9 videos (height = width * 9/16) */
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width inside the container */
+  height: 100%; /* Full height inside the container */
+}
+
 .modal-body img {
-  max-width: 50%; /* Ensures the image doesn’t overflow the modal. */
+  max-width: 50%;
+  min-width: 50%; /* Ensures the image doesn’t overflow the modal. */
+  height: auto; /* Maintains the aspect ratio by adjusting the height proportionally. */
   margin-right: 20px; /* Adds spacing between image and text. */
+  object-fit: contain; 
+  
+}
+
+.modal-body-image .modal-link {
+  align-self: center; /* Centers the link horizontally */
+  margin-top: 20px; /* Optional: Add spacing above the link */
 }
 
 .modal-body p {
@@ -1349,7 +1377,8 @@ input[type="text"] {
   }
 
   .modal-body img {
-    max-width: 100%; /* Limits the image width to half the modal. */
+    max-width: 100%;
+    min-width: 100%; /* Limits the image width to half the modal. */
     height: auto; /* Maintains the image’s aspect ratio. */
     margin-bottom: 20px; /* Adds space below the image. */
   }
