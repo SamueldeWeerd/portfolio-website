@@ -1414,6 +1414,7 @@ input[type="text"] {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 5px;
   padding: 5px;
+  margin: 5px;
 }
 
 .hamburger-icon div {
