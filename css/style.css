@@ -1391,6 +1391,101 @@ input[type="text"] {
   }
 }
 
+/* Container for the floating navbar and hamburger icon */
+.floating-navbar-container {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+/* Hamburger Icon */
+.hamburger-icon {
+  position: fixed;
+  z-index: 1000;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: top;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.hamburger-icon div {
+  width: 30px;
+  height: 4px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Navbar Menu */
+.floating-navbar {
+  position: fixed;
+  top: 50%;
+  left: -200px; /* Hidden off-screen by default */
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  border-radius: 0 5px 5px 0;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+.floating-navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.floating-navbar li {
+  margin: 10px 0;
+}
+
+.floating-navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  display: block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.floating-navbar a:hover {
+  color: #FF9000;
+}
+
+/* Hidden state for the navbar */
+.hidden {
+  left: -200px; /* Keep the navbar off-screen */
+}
+
+/* Visible state for the navbar */
+.visible {
+  left: 0; /* Bring the navbar into view */
+}
+
+@media screen and (max-width: 768px) {
+
+  .hamburger-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .hamburger-icon div {
+    width: 25px;
+  }
+}
+
+
+
 
 
 

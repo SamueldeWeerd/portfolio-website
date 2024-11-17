@@ -157,3 +157,44 @@
 
 
 }());
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.querySelector('.hamburger-icon');
+	const navbarItems = document.querySelectorAll('.navbar-item'); // Select your button
+    toggleButton.addEventListener('click', toggleNavbar);
+	// Add click event for each navbar item to hide the navbar
+    navbarItems.forEach((item) => {
+        item.addEventListener('click', toggleNavbar);
+    });
+	addJsonLd();
+});
+
+function toggleNavbar() {
+	const navbar = document.querySelector('.floating-navbar');
+	navbar.classList.toggle('hidden');
+	navbar.classList.toggle('visible');
+}
+
+function addJsonLd() {
+    const jsonLdScript = document.createElement('script');
+    jsonLdScript.type = 'application/ld+json';
+    jsonLdScript.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Samuel de Weerd",
+        "jobTitle": "Multi-Disciplinary Creator",
+        "url": "https://www.createwithdeweerd.nl",
+        "image": "https://www.createwithdeweerd/images/samuel.jpg",
+        "sameAs": [
+            "https://www.instagram.com/samuel_deweird/",
+            "https://www.linkedin.com/in/samuel-de-weerd-8a9717201/",
+            "https://github.com/SamueldeWeerd"
+        ],
+        "worksFor": {
+            "@type": "WEB GAME APP ontwikkelaar",
+            "name": "DTT"
+        }
+    });
+
+    document.head.appendChild(jsonLdScript);
+}
