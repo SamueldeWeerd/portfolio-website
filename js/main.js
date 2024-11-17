@@ -144,7 +144,7 @@
 		});
 	};
 
-	
+
 	
 	$(function(){
 		handleModalClose();
@@ -156,8 +156,6 @@
 		// pieChart();
 		skillsWayPoint();
 	});
-
-
 }());
 
 document.addEventListener('DOMContentLoaded', () => {
