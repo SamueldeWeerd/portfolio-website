@@ -1487,7 +1487,7 @@ input[type="text"] {
 
 .filter-btn {
   background-color: transparent;
-  color: black;
+  color: white;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -1500,10 +1500,10 @@ input[type="text"] {
   transform: rotate(-5deg);
 }
 .filter-btn:hover {
-  color: white;
+  color: black;
 }
 .filter-btn.active {
-  color: white;
+  color: black;
 }
 
 
