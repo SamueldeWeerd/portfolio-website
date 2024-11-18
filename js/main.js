@@ -180,11 +180,11 @@ function addJsonLd() {
     jsonLdScript.type = 'application/ld+json';
     jsonLdScript.textContent = JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "Person",
+        "@type": "Creative Work",
         "name": "Samuel de Weerd",
-        "jobTitle": "Multi-Disciplinary Creator",
-        "url": "https://www.createwithdeweerd.nl",
-        "image": "https://www.createwithdeweerd/images/samuel.jpg",
+        "jobTitle": "Multi-Disciplinary Digital Creator",
+        "url": "https://www.samueldeweerd.nl",
+        "image": "https://www.samueldeweerd/images/samuel.jpg",
         "sameAs": [
             "https://www.instagram.com/samuel_deweird/",
             "https://www.linkedin.com/in/samuel-de-weerd-8a9717201/",
