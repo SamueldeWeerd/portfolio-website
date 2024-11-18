@@ -144,7 +144,75 @@
 		});
 	};
 
+	var addJsonLd = function() {
+        const jsonLdScript = document.createElement('script');
+        jsonLdScript.type = 'application/ld+json';
+        jsonLdScript.textContent = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Creative Work",
+            "name": "Samuel de Weerd",
+            "jobTitle": "Multi-Disciplinary Digital Creator",
+            "url": "https://www.samueldeweerd.nl",
+            "image": "https://www.samueldeweerd/images/samuel.jpg",
+            "sameAs": [
+                "https://www.instagram.com/samuel_deweird/",
+                "https://www.linkedin.com/in/samuel-de-weerd-8a9717201/",
+                "https://github.com/SamueldeWeerd"
+            ],
+            "worksFor": {
+                "@type": "WEB GAME APP ontwikkelaar",
+                "name": "DTT"
+            }
+        });
+        document.head.appendChild(jsonLdScript);
+    };
 
+	var setupFilterButtons = function() {
+		const buttons = document.querySelectorAll('.filter-btn');
+		const container = document.querySelector('.portfolio-list'); // Adjust the selector to your container for the `.desc` elements
+		const items = Array.from(container.querySelectorAll('.col-md-3.text-center.col-padding.animate-box')); // Use an array for better manipulation
+	
+		buttons.forEach(button => {
+			button.addEventListener('click', () => {
+				// Remove active class from all buttons
+				buttons.forEach(btn => btn.classList.remove('active'));
+				// Add active class to the clicked button
+				button.classList.add('active');
+	
+				const filter = button.getAttribute('data-filter');
+	
+				// Filter the items
+				const filteredItems = items.filter(item => {
+					const categories = item.getAttribute('data-category').split(' '); // Split multiple categories
+					return filter === 'all' || categories.includes(filter);
+				});
+	
+				// Clear the container
+				container.innerHTML = '';
+	
+				// Add filtered items to the container
+				filteredItems.forEach(item => {
+					container.appendChild(item); // Append the parent element of `.desc` (e.g., `.col-md-3`)
+				});
+
+			});
+		});
+	};
+    var setupNavbarToggle = function() {
+        const toggleButton = document.querySelector('.hamburger-icon');
+        const navbarItems = document.querySelectorAll('.navbar-item');
+        const navbar = document.querySelector('.floating-navbar');
+
+        const toggleNavbar = () => {
+            navbar.classList.toggle('hidden');
+            navbar.classList.toggle('visible');
+        };
+
+        toggleButton.addEventListener('click', toggleNavbar);
+        navbarItems.forEach(item => {
+            item.addEventListener('click', toggleNavbar);
+        });
+    };
 	
 	$(function(){
 		handleModalClose();
@@ -155,46 +223,10 @@
 		parallax();
 		// pieChart();
 		skillsWayPoint();
+		addJsonLd();
+		setupFilterButtons();
+		setupNavbarToggle();
 	});
 }());
 
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.querySelector('.hamburger-icon');
-	const navbarItems = document.querySelectorAll('.navbar-item'); // Select your button
-    toggleButton.addEventListener('click', toggleNavbar);
-	// Add click event for each navbar item to hide the navbar
-    navbarItems.forEach((item) => {
-        item.addEventListener('click', toggleNavbar);
-    });
-	addJsonLd();
-});
 
-function toggleNavbar() {
-	const navbar = document.querySelector('.floating-navbar');
-	navbar.classList.toggle('hidden');
-	navbar.classList.toggle('visible');
-}
-
-function addJsonLd() {
-    const jsonLdScript = document.createElement('script');
-    jsonLdScript.type = 'application/ld+json';
-    jsonLdScript.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Creative Work",
-        "name": "Samuel de Weerd",
-        "jobTitle": "Multi-Disciplinary Digital Creator",
-        "url": "https://www.samueldeweerd.nl",
-        "image": "https://www.samueldeweerd/images/samuel.jpg",
-        "sameAs": [
-            "https://www.instagram.com/samuel_deweird/",
-            "https://www.linkedin.com/in/samuel-de-weerd-8a9717201/",
-            "https://github.com/SamueldeWeerd"
-        ],
-        "worksFor": {
-            "@type": "WEB GAME APP ontwikkelaar",
-            "name": "DTT"
-        }
-    });
-
-    document.head.appendChild(jsonLdScript);
-}

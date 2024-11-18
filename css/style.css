@@ -1481,6 +1481,33 @@ input[type="text"] {
   }
 }
 
+#portfolio-menu {
+  text-align: center;
+}
+
+.filter-btn {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: "Kaushan Script", cursive;
+  font-size: 20px;
+  -webkit-transform: rotate(-5deg);
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  -o-transform: rotate(-5deg);
+  transform: rotate(-5deg);
+}
+.filter-btn:hover {
+  color: white;
+}
+.filter-btn.active {
+  color: white;
+}
+
+
+
 
 
 

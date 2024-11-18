@@ -158,7 +158,7 @@
 								</div>
 							</div>
 							<div class="timeline-image">
-								<img src="images/app-development.jpg" alt="Drawing of an app developer" loading="lazy">
+								<img src="images/app-development.jpg" alt="Drawing of Samuel de Weerd as an app developer" loading="lazy">
 							</div>
 						</li>
 						<li class="timeline-inverted animate-box">
@@ -174,7 +174,7 @@
 								</div>
 							</div>
 							<div class="timeline-image">
-								<img src="images/journalism.jpg" alt="Drawing of a journalist" loading="lazy">
+								<img src="images/journalism.jpg" alt="Drawing of Samuel de Weerd a journalist" loading="lazy">
 							</div>
 						</li>
 						<li class="animate-box timeline-unverted">
@@ -190,7 +190,7 @@
 								</div>
 							</div>
 							<div class="timeline-image">
-								<img src="images/entrepreneur.jpg" alt="Drawing of entrepreneurial activities" loading="lazy">
+								<img src="images/entrepreneur.jpg" alt="Drawing of Samuel de Weerd doing entrepreneurial activities" loading="lazy">
 							</div>
 						</li>
 						<li class="timeline-inverted animate-box">
@@ -206,7 +206,7 @@
 								</div>
 							</div>
 							<div class="timeline-image">
-								<img src="images/battery.jpg" alt="Drawing of sustainable energy engineers" loading="lazy">
+								<img src="images/battery.jpg" alt="Drawing of Samuel de Weerd as an energy engineer" loading="lazy">
 							</div>
 						</li>
 
@@ -405,10 +405,18 @@
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 					<h2>Digital Portfolio</h2>
+					<div id="portfolio-menu">
+						<button class="filter-btn" data-filter="all">-All-</button>
+						<button class="filter-btn" data-filter="entrepreneur">-Entrepreneur-</button>
+						<button class="filter-btn" data-filter="music">-Music-</button>
+						<button class="filter-btn" data-filter="videography">-Videography-</button>
+						<button class="filter-btn" data-filter="data-science">-Data Science-</button>
+						<button class="filter-btn" data-filter="development">-Development-</button>
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-3 text-center col-padding animate-box">
+			<div class="row portfolio-list">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="music videography">
 					<a href="#projectModal1" class="work" data-toggle="modal" style="background-image: url(images/synth.jpg);" aria-label="Hardware synthesizer thumbnail">
 						<div class="desc">
 							<h3>Today</h3>
@@ -416,31 +424,31 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="entrepreneur">
 					<a href="#projectModal2" data-toggle="modal" class="work" style="background-image: url(images/koudetraining1.jpg);" aria-label="Group travels">
-						<div class="desc">
+						<div class="desc" >
 							<h3>Fest en Pure</h3>
 							<span>Event organizing</span>
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="entrepreneur videography">
 					<a href="#projectModal3" data-toggle="modal" class="work" style="background-image: url(images/sportsbuddies.jpg);" aria-label="Organized Sports Events">
-						<div class="desc">
+						<div class="desc" >
 							<h3>Olympos Sportsbuddies</h3>
 							<span>Film project</span>
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="videography">
 					<a href="#projectModal4" data-toggle="modal" class="work" style="background-image: url(images/handstand.jpg);" aria-label="Music video">
-						<div class="desc">
+						<div class="desc" >
 							<h3>Sinners</h3>
 							<span>Music video</span>
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box"  data-category="development">
 					<a href="#projectModal5" data-toggle="modal" class="work" style="background-image: url(images/teladoc.jpg);" aria-label="Picture of app development">
 						<div class="desc">
 							<h3>Teladoc</h3>
@@ -448,7 +456,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="music videography">
 					<a href="#projectModal6" data-toggle="modal" class="work" style="background-image: url(images/basis.jpg);" aria-label="Picture for music video">
 						<div class="desc">
 							<h3>Back to the basics</h3>
@@ -456,7 +464,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="development data-science">
 					<a href="#projectModal7" data-toggle="modal" class="work" style="background-image: url(images/friday-energy.jpg);" aria-label="Picture of li-ion batteries">
 						<div class="desc">
 							<h3>Optimized Li-ion batteries</h3>
@@ -464,7 +472,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="videography">
 					<a href="#projectModal8" data-toggle="modal" class="work" style="background-image: url(images/pierregourde.jpg);" aria-label="Picture for music video">
 						<div class="desc">
 							<h3>A musical mountain flight</h3>
@@ -472,7 +480,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="videography">
 					<a href="#projectModal9" data-toggle="modal" class="work" style="background-image: url(images/watchtower.jpg);" aria-label="Picture for music video">
 						<div class="desc">
 							<h3>The watchtower</h3>
@@ -480,7 +488,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="entrepreneur development">
 					<a href="#projectModal10" data-toggle="modal" class="work" style="background-image: url(images/festenpure.jpg);">
 						<div class="desc">
 							<h3>Fest en Pure</h3>
@@ -488,7 +496,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-md-3 text-center col-padding animate-box">
+				<div class="col-md-3 text-center col-padding animate-box" data-category="music videography">
 					<a href="#projectModal11" data-toggle="modal" class="work" style="background-image: url(images/huub.jpg);">
 						<div class="desc">
 							<h3>The cold</h3>
@@ -538,7 +546,7 @@
 				</div>
 				<div class="modal-body modal-body-image">
 					<!-- Image or Video -->
-					<img src="images/koudetraining2.jpg" alt="Organized group travel" class="img-fluid" loading="lazy">
+					<img src="images/koudetraining2.jpg" alt="Organized group travel by Samuel de Weerd" class="img-fluid" loading="lazy">
 					<!-- Description -->
 					<p>Me and Creative Technologist Bart van Son founded our own company in 2022. We organize group trips and workations, in the Netherlands and the South of France. Our goal is to give people the opportunity for reflection and for new behavioral patterns. Central themes are nature, being outside, move your body, and de-stress. Me and my companion are in charge of everything; from the marketing, coordinating activities and logistics to filming and building connections with the local French Viel Audon community.</p>
 				</div>
@@ -561,7 +569,7 @@
 				</div>
 				<div class="modal-body modal-body-image">
 					<!-- Image or Video -->
-					<img src="images/sportsbuddies2.jpg" alt="Organized sports events" class="img-fluid" loading="lazy">
+					<img src="images/sportsbuddies2.jpg" alt="Organized sports events by Samuel de Weerd" class="img-fluid" loading="lazy">
 					<!-- Description -->
 					<p>As a side-activity, I sometimes organize sports events for international students. For promotion, I do the filming during these projects and make the reels.</p>
 				</div>
@@ -662,7 +670,7 @@
 				</div>
 				<div class="modal-body modal-body-image">
 					<!-- Image or Video -->
-					<img src="images/forecasting.jpg" alt="Data science and forecasting picture" class="img-fluid" loading="lazy">
+					<img src="images/forecasting.jpg" alt="Data science and forecasting picture by Samuel de Weerd" class="img-fluid" loading="lazy">
 					<!-- Description -->
 					<p>This was my masters graduation research. I analyzed how to make batteries profitable on Dutch electricity markets. Using Python and data science, I analyzed large datasets, performed energy forecasting to identify market opportunities. I created a report with data visualizations to inform stakeholders.</p>
 				</div>
@@ -747,7 +755,7 @@
 				</div>
 				<div class="modal-body modal-body-image">
 					<!-- Image or Video -->
-					<img src="images/festenpure.jpg" alt="Organized group travels" class="img-fluid" loading="lazy">
+					<img src="images/festenpure.jpg" alt="Organized group travels by Samuel de Weerd" class="img-fluid" loading="lazy">
 					<!-- Description -->
 					<p>Together with Creative Technologist Bart van Son I developed the website for our company using Wordpress Elementor Pro, a low coding framework.</p>
 				</div>
