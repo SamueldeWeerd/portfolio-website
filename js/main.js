@@ -198,6 +198,7 @@
 			});
 		});
 	};
+
     var setupNavbarToggle = function() {
         const toggleButton = document.querySelector('.hamburger-icon');
         const navbarItems = document.querySelectorAll('.navbar-item');
@@ -213,7 +214,69 @@
             item.addEventListener('click', toggleNavbar);
         });
     };
+
+	// Function to update content based on selected language
+    var  updateContent = function(langData) {
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        element.innerHTML = langData[key] || `[Missing translation for: ${key}]`;
+    });
+	}
+
+	var initializeLanguage = async function() {
+		const lang = localStorage.getItem('language') || 'en'; // Default to English
+		await changeLanguage(lang);
+	};
+
+	// Function to set the language preference
+	var setLanguagePreference = function(lang) {
+    localStorage.setItem('language', lang);
+    // location.reload();
+	}
 	
+	// Function to fetch language data
+	// Function to fetch language data
+	var fetchLanguageData = async function(lang) {
+		try {
+			const response = await fetch(`translations/${lang}.json`);
+			if (!response.ok) {
+				throw new Error(`Failed to fetch language data: ${response.status} ${response.statusText}`);
+			}
+			const data = await response.json();
+			console.log(data); // Log the parsed JSON object
+			return data;
+		} catch (error) {
+			console.error(`Error fetching language data: ${error.message}`);
+			return null; // Or handle the error in a way that suits your application
+		}
+	};
+
+
+	// Function to change language
+	var changeLanguage = async function(lang) {
+		
+    	await setLanguagePreference(lang);
+    	const langData = await fetchLanguageData(lang);
+		if (langData) {
+			updateContent(langData);
+		} else {
+			console.error('Language data is not available');
+		}
+		
+		console.log('changinglanguage');
+	}
+
+	var setupLanguageChange = function() {
+		document.querySelectorAll('.language-selector').forEach(button => {
+			button.addEventListener('click', event => {
+				event.preventDefault();
+				const lang = event.target.getAttribute('data-lang');
+				console.log(lang);
+				changeLanguage(lang);
+			});
+		});
+	}
+
 	$(function(){
 		handleModalClose();
 		contentWayPoint();
@@ -226,6 +289,8 @@
 		addJsonLd();
 		setupFilterButtons();
 		setupNavbarToggle();
+		initializeLanguage();
+		setupLanguageChange();
 	});
 }());
 

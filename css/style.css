@@ -1390,10 +1390,18 @@ input[type="text"] {
 /* Container for the floating navbar and hamburger icon */
 .floating-navbar-container {
   position: fixed;
-  top: 50%;
   left: 0;
-  transform: translateY(-50%);
   z-index: 1000;
+}
+
+.floating-navbar-container.menu {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.floating-navbar-container.language {
+  height: 5%;
+  bottom: 5%;
 }
 
 /* Hamburger Icon */
@@ -1424,11 +1432,10 @@ input[type="text"] {
 /* Navbar Menu */
 .floating-navbar {
   position: fixed;
-  top: 50%;
   left: -200px; /* Hidden off-screen by default */
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 10px;
+  padding: 5px;
   border-radius: 0 5px 5px 0;
   z-index: 1000;
   transition: all 0.3s ease-in-out;
@@ -1439,10 +1446,6 @@ input[type="text"] {
   margin: 0;
   padding: 0;
   text-align: left;
-}
-
-.floating-navbar li {
-  margin: 10px 0;
 }
 
 .floating-navbar a {
