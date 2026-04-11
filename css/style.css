@@ -578,6 +578,36 @@ h1, h2, h3, h4, h5, h6, figure {
 	}
 }
 
+/* Timeline expand button */
+.timeline-expand-btn {
+	background: none;
+	border: 2px solid #e6e6e6;
+	border-radius: 30px;
+	padding: 8px 24px;
+	font-family: var(--font-primary);
+	font-size: 14px;
+	color: #888;
+	cursor: pointer;
+	transition: all .3s ease;
+	margin: 10px 0 20px;
+}
+.timeline-expand-btn:hover {
+	border-color: var(--brand-primary);
+	color: var(--brand-primary);
+}
+.timeline-expand-btn i {
+	font-size: 12px;
+	margin-left: 6px;
+	transition: transform .3s ease;
+}
+.timeline-expand-btn[aria-expanded="true"] i {
+	transform: rotate(180deg);
+}
+.timeline-continued {
+	margin-top: 0;
+	padding-top: 0;
+}
+
 /* ==========================================================================
    Portfolio / Work
    ========================================================================== */
@@ -630,6 +660,7 @@ h1, h2, h3, h4, h5, h6, figure {
 	.work .desc h3,
 	.work .desc span {
 		transform: translate3d(0, 0, 0);
+		color: var(--brand-black);
 	}
 }
 .work:hover .desc {
