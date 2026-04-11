@@ -1,297 +1,224 @@
 ;(function () {
-	
 	'use strict';
 
-	var isMobile = {
-		Android: function() {
-			return navigator.userAgent.match(/Android/i);
-		},
-			BlackBerry: function() {
-			return navigator.userAgent.match(/BlackBerry/i);
-		},
-			iOS: function() {
-			return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-		},
-			Opera: function() {
-			return navigator.userAgent.match(/Opera Mini/i);
-		},
-			Windows: function() {
-			return navigator.userAgent.match(/IEMobile/i);
-		},
-			any: function() {
-			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+	// Full height for hero section
+	function fullHeight() {
+		const els = document.querySelectorAll('.js-fullheight');
+		function setHeight() {
+			els.forEach(el => el.style.height = window.innerHeight + 'px');
 		}
-	};
+		setHeight();
+		window.addEventListener('resize', setHeight);
+	}
 
-	
-	var fullHeight = function() {
+	// Scroll-triggered animations using IntersectionObserver
+	function contentWayPoint() {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting && !entry.target.classList.contains('animated-fast')) {
+					entry.target.classList.add('item-animate');
 
-		if ( !isMobile.any() ) {
-			$('.js-fullheight').css('height', $(window).height());
-			$(window).resize(function(){
-				$('.js-fullheight').css('height', $(window).height());
+					setTimeout(() => {
+						const items = document.querySelectorAll('.animate-box.item-animate');
+						items.forEach((el, k) => {
+							setTimeout(() => {
+								const effect = el.dataset.animateEffect;
+								if (effect === 'fadeIn') {
+									el.classList.add('fadeIn', 'animated-fast');
+								} else if (effect === 'fadeInLeft') {
+									el.classList.add('fadeInLeft', 'animated-fast');
+								} else if (effect === 'fadeInRight') {
+									el.classList.add('fadeInRight', 'animated-fast');
+								} else {
+									el.classList.add('fadeInUp', 'animated-fast');
+								}
+								el.classList.remove('item-animate');
+							}, k * 100);
+						});
+					}, 50);
+				}
+			});
+		}, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
+
+		document.querySelectorAll('.animate-box').forEach(el => observer.observe(el));
+	}
+
+	// Go to top button
+	function goToTop() {
+		const btn = document.querySelector('.js-gotop');
+		const wrapper = document.querySelector('.js-top');
+
+		if (btn) {
+			btn.addEventListener('click', (e) => {
+				e.preventDefault();
+				window.scrollTo({ top: 0, behavior: 'smooth' });
 			});
 		}
-	};
 
-	// Parallax
-	var parallax = function() {
-		$(window).stellar();
-	};
-
-	var contentWayPoint = function() {
-		var i = 0;
-		$('.animate-box').waypoint( function( direction ) {
-
-			if( direction === 'down' && !$(this.element).hasClass('animated-fast') ) {
-				
-				i++;
-
-				$(this.element).addClass('item-animate');
-				setTimeout(function(){
-
-					$('body .animate-box.item-animate').each(function(k){
-						var el = $(this);
-						setTimeout( function () {
-							var effect = el.data('animate-effect');
-							if ( effect === 'fadeIn') {
-								el.addClass('fadeIn animated-fast');
-							} else if ( effect === 'fadeInLeft') {
-								el.addClass('fadeInLeft animated-fast');
-							} else if ( effect === 'fadeInRight') {
-								el.addClass('fadeInRight animated-fast');
-							} else {
-								el.addClass('fadeInUp animated-fast');
-							}
-
-							el.removeClass('item-animate');
-						},  k * 100, 'easeInOutExpo' );
-					});
-					
-				}, 50);
-				
-			}
-
-		} , { offset: '85%' } );
-	};
-
-
-
-	var goToTop = function() {
-
-		$('.js-gotop').on('click', function(event){
-			
-			event.preventDefault();
-
-			$('html, body').animate({
-				scrollTop: $('html').offset().top
-			}, 500, 'easeInOutExpo');
-			
-			return false;
-		});
-
-		$(window).scroll(function(){
-
-			var $win = $(window);
-			if ($win.scrollTop() > 200) {
-				$('.js-top').addClass('active');
-			} else {
-				$('.js-top').removeClass('active');
-			}
-
-		});
-	
-	};
-
-	var pieChart = function() {
-		$('.chart').easyPieChart({
-			scaleColor: false,
-			lineWidth: 4,
-			lineCap: 'butt',
-			barColor: '#FF9000',
-			trackColor:	"#f5f5f5",
-			size: 160,
-			animate: 1000
-		});
-	};
-
-	var skillsWayPoint = function() {
-		if ($('#fh5co-skills').length > 0 ) {
-			$('#fh5co-skills').waypoint( function( direction ) {
-										
-				if( direction === 'down' && !$(this.element).hasClass('animated') ) {
-					setTimeout( pieChart , 400);					
-					$(this.element).addClass('animated');
+		if (wrapper) {
+			window.addEventListener('scroll', () => {
+				if (window.scrollY > 200) {
+					wrapper.classList.add('active');
+				} else {
+					wrapper.classList.remove('active');
 				}
-			} , { offset: '90%' } );
+			});
 		}
+	}
 
-	};
-
-
-	// Loading page
-	var loaderPage = function() {
-		$(".fh5co-loader").fadeOut("slow");
-	};
-
-	// Modal Close Handler
-	var handleModalClose = function() {
-		$('.modal').on('hidden.bs.modal', function() {
-			var $iframe = $(this).find('iframe');
-			if ($iframe.length) {
-				$iframe.attr('src', $iframe.attr('src'));
-			}
+	// Modal close: reset iframe src to stop video playback
+	function handleModalClose() {
+		document.querySelectorAll('.modal').forEach(modal => {
+			modal.addEventListener('hidden.bs.modal', () => {
+				const iframe = modal.querySelector('iframe');
+				if (iframe) {
+					const src = iframe.getAttribute('src');
+					iframe.setAttribute('src', '');
+					setTimeout(() => iframe.setAttribute('src', src), 100);
+				}
+			});
 		});
-	};
+	}
 
-	var addJsonLd = function() {
-        const jsonLdScript = document.createElement('script');
-        jsonLdScript.type = 'application/ld+json';
-        jsonLdScript.textContent = JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Creative Work",
-            "name": "Samuel de Weerd",
-            "jobTitle": "Multi-Disciplinary Digital Creator",
-            "url": "https://www.samueldeweerd.nl",
-            "image": "https://www.samueldeweerd/images/samuel.jpg",
-            "sameAs": [
-                "https://www.instagram.com/samuel_deweird/",
-                "https://www.linkedin.com/in/samuel-de-weerd-8a9717201/",
-                "https://github.com/SamueldeWeerd"
-            ],
-            "worksFor": {
-                "@type": "WEB GAME APP ontwikkelaar",
-                "name": "DTT"
-            }
-        });
-        document.head.appendChild(jsonLdScript);
-    };
+	// JSON-LD structured data for SEO
+	function addJsonLd() {
+		const script = document.createElement('script');
+		script.type = 'application/ld+json';
+		script.textContent = JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Samuel de Weerd",
+			"jobTitle": "Creative Data Scientist",
+			"url": "https://www.samueldeweerd.nl",
+			"image": "https://www.samueldeweerd.nl/images/samuel.jpg",
+			"sameAs": [
+				"https://www.linkedin.com/in/samuel-de-weerd-8a9717201/",
+				"https://github.com/SamueldeWeerd",
+				"https://www.instagram.com/samuel_deweird/",
+				"https://www.youtube.com/@samuels_spinsels"
+			],
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Utrecht",
+				"addressCountry": "NL"
+			},
+			"knowsAbout": ["Data Science", "Machine Learning", "AI", "Python", "GIS", "Software Development"]
+		});
+		document.head.appendChild(script);
+	}
 
-	var setupFilterButtons = function() {
+	// Portfolio filter buttons
+	function setupFilterButtons() {
 		const buttons = document.querySelectorAll('.filter-btn');
-		const container = document.querySelector('.portfolio-list'); // Adjust the selector to your container for the `.desc` elements
-		const items = Array.from(container.querySelectorAll('.col-md-3.text-center.col-padding.animate-box')); // Use an array for better manipulation
-	
+		const container = document.querySelector('.portfolio-list');
+		if (!container) return;
+		const items = Array.from(container.querySelectorAll('[data-category]'));
+
 		buttons.forEach(button => {
 			button.addEventListener('click', () => {
-				// Remove active class from all buttons
 				buttons.forEach(btn => btn.classList.remove('active'));
-				// Add active class to the clicked button
 				button.classList.add('active');
-	
+
 				const filter = button.getAttribute('data-filter');
-	
-				// Filter the items
-				const filteredItems = items.filter(item => {
-					const categories = item.getAttribute('data-category').split(' '); // Split multiple categories
+				const filtered = items.filter(item => {
+					const categories = item.getAttribute('data-category').split(' ');
 					return filter === 'all' || categories.includes(filter);
 				});
-	
-				// Clear the container
+
 				container.innerHTML = '';
-	
-				// Add filtered items to the container
-				filteredItems.forEach(item => {
-					container.appendChild(item); // Append the parent element of `.desc` (e.g., `.col-md-3`)
-				});
-
+				filtered.forEach(item => container.appendChild(item));
 			});
 		});
-	};
-
-    var setupNavbarToggle = function() {
-        const toggleButton = document.querySelector('.hamburger-icon');
-        const navbarItems = document.querySelectorAll('.navbar-item');
-        const navbar = document.querySelector('.floating-navbar');
-
-        const toggleNavbar = () => {
-            navbar.classList.toggle('hidden');
-            navbar.classList.toggle('visible');
-        };
-
-        toggleButton.addEventListener('click', toggleNavbar);
-        navbarItems.forEach(item => {
-            item.addEventListener('click', toggleNavbar);
-        });
-    };
-
-	// Function to update content based on selected language
-    var  updateContent = function(langData) {
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        element.innerHTML = langData[key] || `[Missing translation for: ${key}]`;
-    });
 	}
 
-	var initializeLanguage = async function() {
-		const lang = localStorage.getItem('language') || 'en'; // Default to English
-		await changeLanguage(lang);
-	};
+	// Navbar toggle
+	function setupNavbarToggle() {
+		const toggleButton = document.querySelector('.hamburger-icon');
+		const navbarItems = document.querySelectorAll('.navbar-item');
+		const navbar = document.querySelector('.floating-navbar');
+		if (!toggleButton || !navbar) return;
 
-	// Function to set the language preference
-	var setLanguagePreference = function(lang) {
-    localStorage.setItem('language', lang);
-    // location.reload();
+		const toggleNavbar = () => {
+			navbar.classList.toggle('hidden');
+			navbar.classList.toggle('visible');
+		};
+
+		toggleButton.addEventListener('click', toggleNavbar);
+		navbarItems.forEach(item => item.addEventListener('click', toggleNavbar));
 	}
-	
-	// Function to fetch language data
-	// Function to fetch language data
-	var fetchLanguageData = async function(lang) {
-		try {
-			const response = await fetch(`translations/${lang}.json`);
-			if (!response.ok) {
-				throw new Error(`Failed to fetch language data: ${response.status} ${response.statusText}`);
+
+	// i18n: update content
+	function updateContent(langData) {
+		document.querySelectorAll('[data-i18n]').forEach(element => {
+			const key = element.getAttribute('data-i18n');
+			if (langData[key]) {
+				element.innerHTML = langData[key];
 			}
-			const data = await response.json();
-			console.log(data); // Log the parsed JSON object
-			return data;
-		} catch (error) {
-			console.error(`Error fetching language data: ${error.message}`);
-			return null; // Or handle the error in a way that suits your application
-		}
-	};
-
-
-	// Function to change language
-	var changeLanguage = async function(lang) {
-		
-    	await setLanguagePreference(lang);
-    	const langData = await fetchLanguageData(lang);
-		if (langData) {
-			updateContent(langData);
-		} else {
-			console.error('Language data is not available');
-		}
-		
-		console.log('changinglanguage');
+		});
 	}
 
-	var setupLanguageChange = function() {
-		document.querySelectorAll('.language-selector').forEach(button => {
-			button.addEventListener('click', event => {
-				event.preventDefault();
-				const lang = event.target.getAttribute('data-lang');
-				console.log(lang);
-				changeLanguage(lang);
+	// i18n: fetch language data (with fallback for file:// protocol)
+	async function fetchLanguageData(lang) {
+		try {
+			const response = await fetch('translations/' + lang + '.json');
+			if (!response.ok) throw new Error('HTTP ' + response.status);
+			return await response.json();
+		} catch (error) {
+			console.error('Error fetching language data: ' + error.message);
+			// Fallback: try with explicit path
+			try {
+				const base = document.querySelector('base');
+				const basePath = base ? base.href : window.location.href.replace(/[^/]*$/, '');
+				const response = await fetch(basePath + 'translations/' + lang + '.json');
+				if (!response.ok) throw new Error('HTTP ' + response.status);
+				return await response.json();
+			} catch (e) {
+				console.error('Fallback also failed: ' + e.message);
+				return null;
+			}
+		}
+	}
+
+	// i18n: change language
+	async function changeLanguage(lang) {
+		localStorage.setItem('language', lang);
+		document.documentElement.lang = lang;
+		const langData = await fetchLanguageData(lang);
+		if (langData) updateContent(langData);
+	}
+
+	// i18n: initialize — default to Dutch; reset stale 'en' from old site
+	async function initializeLanguage() {
+		if (!localStorage.getItem('site_v2')) {
+			localStorage.removeItem('language');
+			localStorage.setItem('site_v2', '1');
+		}
+		const lang = localStorage.getItem('language') || 'nl';
+		await changeLanguage(lang);
+	}
+
+	// i18n: language selector click handlers
+	function setupLanguageChange() {
+		document.querySelectorAll('.language-selector').forEach(selector => {
+			selector.addEventListener('click', (e) => {
+				e.preventDefault();
+				const lang = selector.getAttribute('data-lang');
+				if (lang) changeLanguage(lang);
 			});
 		});
 	}
 
-	$(function(){
-		handleModalClose();
+	// Initialize everything on DOM ready
+	document.addEventListener('DOMContentLoaded', () => {
+		fullHeight();
 		contentWayPoint();
 		goToTop();
-		loaderPage();
-		fullHeight();
-		parallax();
-		// pieChart();
-		skillsWayPoint();
+		handleModalClose();
 		addJsonLd();
 		setupFilterButtons();
 		setupNavbarToggle();
 		initializeLanguage();
 		setupLanguageChange();
 	});
+
 }());
-
-
