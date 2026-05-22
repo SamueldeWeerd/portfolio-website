@@ -88,7 +88,7 @@
 			"@context": "https://schema.org",
 			"@type": "Person",
 			"name": "Samuel de Weerd",
-			"jobTitle": "Creative Data Scientist",
+			"jobTitle": "Data Scientist | AI engineer",
 			"url": "https://www.samueldeweerd.nl",
 			"image": "https://www.samueldeweerd.nl/images/samuel.jpg",
 			"sameAs": [
