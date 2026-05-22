@@ -208,17 +208,6 @@
 		});
 	}
 
-	// Re-observe animate-boxes inside collapse when it opens
-	function setupCollapseAnimations() {
-		const collapseEl = document.getElementById('timeline-more');
-		if (!collapseEl) return;
-		collapseEl.addEventListener('shown.bs.collapse', () => {
-			collapseEl.querySelectorAll('.animate-box:not(.animated-fast)').forEach(el => {
-				el.classList.add('fadeInUp', 'animated-fast');
-			});
-		});
-	}
-
 	// Initialize everything on DOM ready
 	document.addEventListener('DOMContentLoaded', () => {
 		fullHeight();
@@ -230,7 +219,6 @@
 		setupNavbarToggle();
 		initializeLanguage();
 		setupLanguageChange();
-		setupCollapseAnimations();
 	});
 
 }());
